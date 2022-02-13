@@ -42,7 +42,7 @@ func handleUsers(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusForbidden)
 		return
 	}
-	list, err := readConfig("ipsec.secrets")
+	list, err := readConfig(pathToSecretsFile)
 	if err != nil {
 		http.Error(w, "could not open config file", http.StatusInternalServerError)
 		return
