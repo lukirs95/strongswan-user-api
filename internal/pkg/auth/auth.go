@@ -33,6 +33,8 @@ func Login(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusUnauthorized)
 		session.Values["authenticated"] = false
 	}
+	session.Options.HttpOnly = true
+	// session.Options.Secure = true
 	session.Save(r, w)
 }
 
@@ -40,6 +42,7 @@ func Logout(w http.ResponseWriter, r *http.Request) {
 	session, _ := store.Get(r, "vpn-admin")
 
 	// Revoke users authentication
+	session.Options.HttpOnly = true
 	session.Values["authenticated"] = false
 	session.Save(r, w)
 }
