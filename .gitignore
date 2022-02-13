@@ -16,3 +16,6 @@
 
 # actual secret files
 *.secrets
+
+# ignore static files
+static/
