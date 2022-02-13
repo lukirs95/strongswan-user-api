@@ -2,8 +2,10 @@ package main
 
 import (
 	"flag"
+	"fmt"
 	"log"
 	"net/http"
+	"os"
 	"time"
 
 	"github.com/lukirs95/strongswan-user-api/internal/pkg/rest"
@@ -25,5 +27,11 @@ func main() {
 		ReadTimeout:  15 * time.Second,
 	}
 
+	var SESSION_KEY string = os.Getenv("SESSION_KEY")
+	var ADMIN_USERNAME string = os.Getenv("ADMIN_USERNAME")
+	var ADMIN_PASSWORD string = os.Getenv("ADMIN_PASSWORD")
+	fmt.Println("SESSION_KEY: " + SESSION_KEY)
+	fmt.Println("ADMIN_USERNAME: " + ADMIN_USERNAME)
+	fmt.Println("ADMIN_PASSWORD: " + ADMIN_PASSWORD)
 	log.Fatal(srv.ListenAndServe())
 }
