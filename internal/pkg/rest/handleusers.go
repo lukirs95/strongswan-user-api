@@ -61,7 +61,7 @@ func handleUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	vpn_user := &vpn_user{Username: mux.Vars(r)["username"]}
-	list, err := readConfig("ipsec.secrets")
+	list, err := readConfig(pathToSecretsFile)
 	if err != nil {
 		http.Error(w, "could not open config file", http.StatusInternalServerError)
 		return
@@ -74,7 +74,7 @@ func handleUser(w http.ResponseWriter, r *http.Request) {
 			http.Error(w, err.Error(), http.StatusBadRequest)
 			return
 		}
-		err = saveConfig("ipsec.secrets", list)
+		err = saveConfig(pathToSecretsFile, list)
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
@@ -85,7 +85,7 @@ func handleUser(w http.ResponseWriter, r *http.Request) {
 			http.Error(w, err.Error(), http.StatusBadRequest)
 			return
 		}
-		err = saveConfig("ipsec.secrets", list)
+		err = saveConfig(pathToSecretsFile, list)
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return

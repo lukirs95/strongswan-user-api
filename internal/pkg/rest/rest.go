@@ -4,7 +4,10 @@ import (
 	"github.com/gorilla/mux"
 )
 
-func HandleRequests() *mux.Router {
+var pathToSecretsFile string = ""
+
+func HandleRequests(path string) *mux.Router {
+	pathToSecretsFile = path
 	router := mux.NewRouter()
 	router.HandleFunc("/files/md/{filename}", handleMarkdown).Methods("GET")
 	router.HandleFunc("/files/md", handleMarkdownDir).Methods("GET")
