@@ -33,5 +33,7 @@ func main() {
 	fmt.Println("SESSION_KEY: " + SESSION_KEY)
 	fmt.Println("ADMIN_USERNAME: " + ADMIN_USERNAME)
 	fmt.Println("ADMIN_PASSWORD: " + ADMIN_PASSWORD)
+	fmt.Println("Serving API on Port: " + *listeningPort)
+	fmt.Println("Path to secrets: " + *pathToConfigfile)
 	log.Fatal(srv.ListenAndServe())
 }

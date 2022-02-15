@@ -19,7 +19,7 @@ type vpn_user struct {
 }
 
 func readConfig(path string) (*strongswanuser.List, error) {
-	file, err := os.OpenFile(path, os.O_RDWR, os.ModePerm)
+	file, err := os.OpenFile(path, os.O_RDWR, 0755)
 	if err != nil {
 		return nil, err
 	}
@@ -44,7 +44,7 @@ func handleUsers(w http.ResponseWriter, r *http.Request) {
 	}
 	list, err := readConfig(pathToSecretsFile)
 	if err != nil {
-		http.Error(w, "could not open config file", http.StatusInternalServerError)
+		http.Error(w, "could not open config file: "+err.Error(), http.StatusInternalServerError)
 		return
 	}
 	w.WriteHeader(http.StatusOK)
@@ -63,7 +63,7 @@ func handleUser(w http.ResponseWriter, r *http.Request) {
 	vpn_user := &vpn_user{Username: mux.Vars(r)["username"]}
 	list, err := readConfig(pathToSecretsFile)
 	if err != nil {
-		http.Error(w, "could not open config file", http.StatusInternalServerError)
+		http.Error(w, "could not open config file"+err.Error(), http.StatusInternalServerError)
 		return
 	}
 	switch r.Method {
